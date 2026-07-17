@@ -1,0 +1,238 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-50: #eaf3fb;
+  --color-brand-100: #d0e6f7;
+  --color-brand-200: #a3ccef;
+  --color-brand-300: #6fb0e6;
+  --color-brand-400: #3d94dc;
+  --color-brand-500: #1976d2;
+  --color-brand-600: #145ea8;
+  --color-brand-700: #0f477e;
+  --color-brand-800: #0a3055;
+  --color-brand-900: #05192b;
+  --color-accent-light: #e8f4ff;
+
+  --font-display: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+  font-family: var(--font-body);
+  background: #f5f8fc;
+  color: #0f2942;
+  -webkit-tap-highlight-color: transparent;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.field-control {
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid #d8e2ec;
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.92);
+  padding: 0.75rem 1rem;
+  color: #0f2942;
+  font-size: 0.875rem;
+  outline: none;
+  transition: border-color 160ms ease, box-shadow 160ms ease, background 160ms ease;
+}
+
+.field-control::placeholder { color: #94a3b8; }
+.field-control:hover { border-color: #b7c8d9; }
+.field-control:focus {
+  border-color: #3d94dc;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(61, 148, 220, 0.15);
+}
+
+.field-control.has-leading-icon { padding-left: 2.75rem; }
+.field-control.has-trailing-icon { padding-right: 3rem; }
+
+.surface-card {
+  border: 1px solid rgba(208, 220, 232, 0.85);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 10px 35px rgba(15, 71, 126, 0.07);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* Glassmorphism card */
+.glass {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 32px rgba(15, 71, 126, 0.08);
+}
+
+.dark .glass {
+  background: rgba(15, 32, 55, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Animated gradient background used on auth screens */
+.animated-gradient {
+  background: linear-gradient(120deg, #0f477e, #1976d2, #3d94dc, #0a3055);
+  background-size: 300% 300%;
+  animation: gradientShift 12s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Ripple effect */
+.ripple {
+  position: relative;
+  overflow: hidden;
+}
+.ripple:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255,255,255,0.55) 10%, transparent 10.5%);
+  background-position: 50%;
+  background-repeat: no-repeat;
+  transform: scale(10, 10);
+  opacity: 0;
+  transition: transform .5s, opacity 1s;
+}
+.ripple:active:after {
+  transform: scale(0, 0);
+  opacity: .35;
+  transition: 0s;
+}
+
+/* Skeleton shimmer */
+.skeleton {
+  background: linear-gradient(90deg, #eaf3fb 25%, #d0e6f7 37%, #eaf3fb 63%);
+  background-size: 400% 100%;
+  animation: shimmer 1.4s ease infinite;
+}
+@keyframes shimmer {
+  0% { background-position: 100% 50%; }
+  100% { background-position: 0 50%; }
+}
+
+/* Hide scrollbar on horizontal chip rows */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Installed PWA shell. Browser and desktop layouts stay unchanged. */
+html.pwa-mode,
+html.pwa-mode body {
+  min-height: 100dvh;
+  background: #f5f8fc;
+  overscroll-behavior: none;
+}
+
+html.pwa-mode body {
+  overflow-x: hidden;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+html.pwa-mode input,
+html.pwa-mode textarea,
+html.pwa-mode [contenteditable="true"] {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+html.pwa-mode .route-transition {
+  min-height: 100dvh;
+  will-change: opacity, transform;
+}
+
+html.pwa-mode .app-mobile-header {
+  padding-top: calc(env(safe-area-inset-top) + 0.75rem);
+}
+
+html.pwa-mode .app-pro-screen {
+  padding-top: env(safe-area-inset-top);
+}
+
+html.pwa-mode .app-bottom-nav {
+  inset-inline: 0;
+  bottom: 0;
+  max-width: none;
+  border-right: 0;
+  border-bottom: 0;
+  border-left: 0;
+  border-radius: 1.25rem 1.25rem 0 0;
+  padding-bottom: max(0.65rem, env(safe-area-inset-bottom));
+  box-shadow: 0 -8px 30px rgba(15, 41, 66, 0.1);
+}
+
+html.pwa-mode .app-offline-pill {
+  top: calc(env(safe-area-inset-top) + 0.6rem);
+}
+
+html.pwa-mode .app-login-shell {
+  padding: 0;
+  background: #f5f8fc;
+}
+
+html.pwa-mode .app-login-shell > div:first-child {
+  display: none;
+}
+
+html.pwa-mode .app-login-card {
+  min-height: 100dvh;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+html.pwa-mode .app-login-card > section:last-child {
+  padding-top: calc(env(safe-area-inset-top) + 1.25rem);
+  padding-bottom: calc(env(safe-area-inset-bottom) + 1.25rem);
+}
+
+html.pwa-mode button:active,
+html.pwa-mode a:active {
+  transform: scale(0.97);
+}
+
+@media (display-mode: standalone) and (max-width: 900px) {
+  html { background: #f5f8fc; }
+  body::-webkit-scrollbar { display: none; }
+  body { scrollbar-width: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
