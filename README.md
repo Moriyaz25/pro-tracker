@@ -14,8 +14,8 @@ Live GPS and photo visit verification for hospital PRO field teams. Built with N
 
 ## Local setup
 
-1. Create a PostgreSQL database (the default example is `pro-traacker`).
-2. Copy `.env.example` to `.env.local` and set `DATABASE_URL` and the bootstrap admin values.
+1. Create a PostgreSQL database.
+2. Create the ignored `.env.local` file and set `DATABASE_URL`, `ADMIN_EMAIL`, `ADMIN_PASSWORD`, and `ADMIN_NAME`.
 3. Install dependencies and start the app:
 
 ```bash
@@ -42,7 +42,7 @@ PostgreSQL credentials are read only by server modules. Never expose them using 
 ## Production deployment
 
 - Use a hosted PostgreSQL instance; `localhost` in `DATABASE_URL` only works for local development.
-- Set `DATABASE_SSL=true` when required by the database provider.
+- Include the provider's required SSL options in `DATABASE_URL`.
 - Replace the bootstrap `ADMIN_PASSWORD` after the first admin has been created.
 - Deploy behind HTTPS. Camera and precise geolocation APIs are restricted to secure contexts outside `localhost`.
 - Keep the Next.js server and PostgreSQL region close to Indian users for lower upload and dashboard latency.

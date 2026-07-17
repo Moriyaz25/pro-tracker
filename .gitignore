@@ -9,7 +9,6 @@ coverage/
 .env
 .env.local
 .env.*.local
-!.env.example
 *.pem
 *.key
 serviceAccountKey.json
