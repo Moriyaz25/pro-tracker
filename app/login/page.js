@@ -16,6 +16,7 @@ import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import PasswordInput from "@/components/ui/PasswordInput";
 import { loginAsAdmin, loginWithEmployeeId } from "@/lib/authClient";
+import { useAuthStore } from "@/store/useAuthStore";
 
 const benefits = [
   { icon: HiOutlineMapPin, text: "Live India-wide field visit tracking" },
@@ -28,6 +29,7 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({ id: "", email: "", password: "" });
   const router = useRouter();
+  const setUser = useAuthStore((state) => state.setUser);
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -36,6 +38,7 @@ export default function LoginPage() {
       const profile = mode === "pro"
         ? await loginWithEmployeeId(form.id.trim(), form.password)
         : await loginAsAdmin(form.email.trim(), form.password);
+      setUser(profile);
       toast.success(`Welcome back, ${profile.name || "there"}!`);
       router.replace(profile.role === "admin" ? "/admin" : "/pro");
     } catch (error) {
